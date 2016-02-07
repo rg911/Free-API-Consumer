@@ -12,7 +12,7 @@ The application is split into two components.
 
 1. Web - The presentation layer - ASP.Net MVC web application
 
-2. Common - Service layer - Holds all of the service functions and data models for the application (e.g. Api consumer, Food.org.uk Api data models etc..)
+2. Common - Service layer - Holds all service functions and data models for the application.
 
 
 ## Tools Used
