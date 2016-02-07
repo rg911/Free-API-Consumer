@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{36935CD4-F987-417C-B477-AA28036CB830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D95BF23B-AE7C-4236-A2EC-2600138155A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Test", "Web.Test\Web.Test.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.UnitTest", "Common.Test\Common.UnitTest.csproj", "{35E522F1-2C49-4F9E-90A4-8C0871B70146}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{347DDE46-235D-43E3-9815-2EBF49FF4906}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.IntegrationTest", "Common.IntegrationTest\Common.IntegrationTest.csproj", "{FAA8B7ED-5C71-4185-8FBB-DED22222715F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B7D2721A-78B3-4668-8C35-C290123941DB}"
+	ProjectSection(SolutionItems) = preProject
+		README.MD = README.MD
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36935CD4-F987-417C-B477-AA28036CB830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36935CD4-F987-417C-B477-AA28036CB830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36935CD4-F987-417C-B477-AA28036CB830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36935CD4-F987-417C-B477-AA28036CB830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D95BF23B-AE7C-4236-A2EC-2600138155A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D95BF23B-AE7C-4236-A2EC-2600138155A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D95BF23B-AE7C-4236-A2EC-2600138155A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D95BF23B-AE7C-4236-A2EC-2600138155A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{067456C0-086C-46A8-B37F-1405717B7BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{067456C0-086C-46A8-B37F-1405717B7BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{067456C0-086C-46A8-B37F-1405717B7BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{067456C0-086C-46A8-B37F-1405717B7BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35E522F1-2C49-4F9E-90A4-8C0871B70146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E522F1-2C49-4F9E-90A4-8C0871B70146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35E522F1-2C49-4F9E-90A4-8C0871B70146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E522F1-2C49-4F9E-90A4-8C0871B70146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAA8B7ED-5C71-4185-8FBB-DED22222715F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAA8B7ED-5C71-4185-8FBB-DED22222715F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAA8B7ED-5C71-4185-8FBB-DED22222715F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAA8B7ED-5C71-4185-8FBB-DED22222715F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{067456C0-086C-46A8-B37F-1405717B7BFC} = {347DDE46-235D-43E3-9815-2EBF49FF4906}
+		{35E522F1-2C49-4F9E-90A4-8C0871B70146} = {347DDE46-235D-43E3-9815-2EBF49FF4906}
+		{FAA8B7ED-5C71-4185-8FBB-DED22222715F} = {347DDE46-235D-43E3-9815-2EBF49FF4906}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://stevenliu.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Web\\Web.csproj
+		SccProjectName1 = Web
+		SccLocalPath1 = Web
+		SccProjectUniqueName2 = Common\\Common.csproj
+		SccProjectName2 = Common
+		SccLocalPath2 = Common
+		SccProjectUniqueName3 = Web.Test\\Web.Test.csproj
+		SccProjectTopLevelParentUniqueName3 = FoodRating.sln
+		SccProjectName3 = Web.Test
+		SccLocalPath3 = Web.Test
+		SccProjectUniqueName4 = Common.Test\\Common.UnitTest.csproj
+		SccProjectTopLevelParentUniqueName4 = FoodRating.sln
+		SccProjectName4 = Common.Test
+		SccLocalPath4 = Common.Test
+		SccProjectUniqueName5 = Common.IntegrationTest\\Common.IntegrationTest.csproj
+		SccProjectTopLevelParentUniqueName5 = FoodRating.sln
+		SccProjectName5 = Common.IntegrationTest
+		SccLocalPath5 = Common.IntegrationTest
+	EndGlobalSection
+EndGlobal

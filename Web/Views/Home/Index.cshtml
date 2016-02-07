@@ -1,0 +1,78 @@
+﻿@using Common.Extensions
+@model Web.Models.ResultsViewModel
+@{
+    ViewBag.Title = "View Ratings";
+}
+
+@using (Html.BeginForm())
+{
+   @Html.AntiForgeryToken()
+    <div class="container content" style="margin-top: 60px">
+        <div class="row">
+            <div class="col-md-3">
+                    @Html.LabelFor(m => m.SelectedAuthorityId)
+                    @Html.DropDownListFor(m => m.SelectedAuthorityId, (IEnumerable<SelectListItem>)ViewBag.AuthorityList, "Select Local Authority", new { onchange = "form.submit()", @class = "form-control" })
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-dark equal-height-column">
+                    <div class="panel-heading" style="padding-bottom: 0px;">
+                        <p id="authorityName" class="panel-header-text">
+                        </p>
+                        
+                    </div>
+                    @if (Model.Ratings != null)
+                    {
+                        <div class="panel-body" style="padding-top: 0px;">
+
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <p class="table-header">
+                                            <strong>Rating Name</strong>
+                                        </p>
+                                    </th>
+                                    <th>
+                                        <p class="table-header">
+                                            <strong>Rating Percentage</strong>
+                                        </p>
+                                    </th>
+                                </tr>
+                                </thead>
+                                @foreach (var rating in Model.Ratings)
+                                {
+                                    <tr>
+                                        <td class="table-text">
+                                            @rating.RatingName.GetStarName()
+                                        </td>
+                                        <td class="table-text">
+                                            @rating.Percentage.RoundPercentage() %
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var authName = $('#SelectedAuthorityId option:selected').text();
+            $('#authorityName').html(authName);
+       });
+
+        $("#SelectedAuthorityId").change(function () {
+            var authName = $('#SelectedAuthorityId option:selected').text();
+            $('#authorityName').html(authName);
+        });
+    </script>
+
+}

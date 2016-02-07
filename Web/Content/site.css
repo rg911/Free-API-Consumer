@@ -1,0 +1,148 @@
+﻿* {
+    font-family: "Open Sans",sans-serif;
+}
+p{
+    color: #888;
+    font-size: 14px;
+}
+body {
+    padding-bottom: 20px;
+}
+.wrapper {
+    background: #fff none repeat scroll 0 0;
+}
+.container {
+    width: 970px;
+}
+.breadcrumbs {
+    background: rgba(0, 0, 0, 0) url("../Content/image/breadcrumbs.png") repeat scroll 0 0;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    padding: 10px 0 6px;
+}
+.breadcrumbs h1 {
+    color: #666;
+    font-size: 22px;
+    margin-top: 8px;
+}
+.breadcrumb a {
+    color: #777;
+}
+.breadcrumb li.active, .breadcrumb li a:hover {
+    color: #66b2ff;
+    text-decoration: none;
+}
+a, a:focus, a:hover, a:active {
+    outline: 0 none !important;
+    color: #66b2ff;
+    text-decoration: none;
+}
+.content {
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.panel {
+    border-radius: 3px;
+    border: 2px solid #ddd;
+    box-shadow: 0 0 5px #eee;
+}
+.panel:hover {
+    box-shadow: 0 0 15px #b5b5b5;
+}
+.panel-heading{
+     margin-left: 6px;
+}
+
+.panel-footer {
+    color: #fff;
+    padding: 5px 15px;
+}
+.panel .table {
+    margin-bottom: 0;
+}
+
+.panel-footer{
+    border-radius: 3px;
+}
+
+.panel-dark > .panel-footer {
+    background: #545b5e none repeat scroll 0 0;
+}
+
+.panel-heading .statement-total{
+    font-size: 18px;
+    font-family: "Open Sans",sans-serif;
+    color: #181a1b;
+}
+
+.table tbody > tr {
+    
+    border-bottom: 1px solid #ddd;
+}
+.table tbody > tr:last-child {
+    border-bottom: none;
+}
+.table tbody > tr > td, .table tbody > tr > th {
+    border-top:none;
+    padding: 6px;
+}
+
+.statement-header{
+    color: #687074;
+    font-size: 12px;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-bottom:3px;
+   
+}
+.panel-header-text{
+    font-size: 24px;
+    font-family: "Open Sans",sans-serif;
+    color: #717984;
+    font-weight: normal !important;
+    display: inline-block;
+}
+
+.statement-total{
+    font-size: 24px;
+    font-family: "Open Sans",sans-serif;
+    color: #181a1b;
+    font-weight: normal !important;
+    display: inline-block;
+}
+.table-header{
+    color: #303436;
+    font-size: 12px;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-bottom:3px;
+    font-family: "Open Sans",sans-serif;
+}
+.table-text{
+    color: #545b5e;
+    text-transform: uppercase;
+    font-family: "Open Sans",sans-serif;
+    font-size: 12px;
+}
+
