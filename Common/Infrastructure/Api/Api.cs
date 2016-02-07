@@ -14,11 +14,16 @@ namespace Common.Infrastructure.Api
     /// <typeparam name="T">Generic class for Json models</typeparam>
     public class Api<T> :ApiBase, IApi<T> where T: class
     {
+        /// <summary>
+        /// BaseApiUrl property. This is used for testing only as Base service class is handling the BaseUrl.
+        /// So we can pass any BaseUrl to test 
+        /// Default URL is stored in WebConfig constant class.
+        /// </summary>
         public string BaseApiUrl { get; set; }
 
         #region Constructor
         /// <summary>
-        /// Taking a new instance of HttpClient and set it up in base class
+        /// API service constructor with Log4Net injected
         /// </summary>
         /// <param name="log">Log4Net injected</param>
         public Api(ILog log) : base(log)
@@ -80,7 +85,11 @@ namespace Common.Infrastructure.Api
         #endregion
 
         #region Private Method
-
+        /// <summary>
+        /// this method to setup HttpClient object with default configurations.
+        /// </summary>
+        /// <param name="baseApiUrl"></param>
+        /// <returns></returns>
         private static HttpClient HttpClientSetup(string baseApiUrl)
         {
             HttpClient client = new HttpClient {BaseAddress = new Uri(baseApiUrl ?? ApiConstant.BassApiUrl)};

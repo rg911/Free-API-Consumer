@@ -28,9 +28,9 @@ Log4Net is used for activity and error logging.
 
 ## Code Structure
 
-+ Main API consumer interface is in ___Common -> Infrastructure -> Api -> IApi.cs__ and implementation __Api.cs__ is in the same folder. This is a open generic type returning any data model class. A derived class for __Api.cs__ used for handling activity logging.
-+ Closed constructed type service handlers are in __Common -> Services__ folder for servicing specific Api calls in this application. 
-+ Strong typed data model used in this application which are stored in __Common -> Model__ and __Common -> ViewModel.__
++ Main API consumer interface is in ___Common -> Infrastructure -> Api -> IApi.cs__ and implementation __Api.cs__ is in the same folder. This is a open generic type returning any data model class. A derived class __ApiBase.cs__ is used for handling activity logging.
++ Closed constructed type services handles specific Api calls. They are in __Common -> Services__ folder. This application has two services which have main API depencency injected: __AuthorityService__ and __EstablishmentService__. Interface created for both service which are also injected into WebUI's controller. 
++ Strong typed data model used for API Json results in this application which are stored in __Common -> Model__ and __Common -> ViewModel.__
 
 
 ## Testing

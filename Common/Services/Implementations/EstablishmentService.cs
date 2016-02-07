@@ -10,11 +10,20 @@ using log4net;
 
 namespace Common.Services.Implementations
 {
+    /// <summary>
+    /// Implementation of IEstablishmentService
+    /// </summary>
     public class EstablishmentService : IEstablishmentService
     {
         #region Properties
 
+        /// <summary>
+        /// API service property
+        /// </summary>
         private IApi<EstablishmentsViewModel> Api { get; }
+        /// <summary>
+        /// Log4Net 
+        /// </summary>
         private ILog Log { get; }
 
         #endregion
@@ -22,10 +31,10 @@ namespace Common.Services.Implementations
         #region Constructor
 
         /// <summary>
-        /// Taking a new instance of HttpClient and set it up in base class
+        /// Inject Log4Net and API service in order to perform API calls and activity logging
         /// </summary>
-        /// <param name="log">Log4Net instance</param>
-        /// <param name="api">Api instance</param>
+        /// <param name="log">Log4Net</param>
+        /// <param name="api">Api service</param>
         public EstablishmentService(ILog log, IApi<EstablishmentsViewModel> api)
         {
             Api = api;
@@ -40,7 +49,7 @@ namespace Common.Services.Implementations
         /// </summary>
         /// <param name="uri">API uri</param>
         /// <param name="queryString">Query string</param>
-        /// <returns>List of eatablishment ratings</returns>
+        /// <returns>List of eatablishment rating model</returns>
         public async Task<IEnumerable<RatingViewModel>> GetRating(string uri, Dictionary<string, string> queryString)
         {
             var model = await Api.GetAsync(GetUri(uri, queryString));
@@ -73,7 +82,7 @@ namespace Common.Services.Implementations
         /// </summary>
         /// <param name="uri">Api Rui</param>
         /// <param name="queryString">Query string dictionary</param>
-        /// <returns>Api uri and all query string</returns>
+        /// <returns>Api uri and all query string for filtering</returns>
         private static string GetUri(string uri, Dictionary<string, string> queryString)
         {
             //if no query string provided, just return base uri

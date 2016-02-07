@@ -8,8 +8,16 @@ using Common.ViewModel;
 
 namespace Common.Services.Interfaces
 {
+    /// <summary>
+    /// Authority services handler
+    /// </summary>
     public interface IAuthorityService
     {
+        /// <summary>
+        /// Call API get all local authrities
+        /// </summary>
+        /// <param name="uri">API Uri</param>
+        /// <returns>Closed constructed local authority model</returns>
         Task<AuthoritiesViewModel> GetAuthorities(string uri);
     }
 }
