@@ -26,7 +26,7 @@ namespace Common.UnitTest.Infrastructure.Api
             var api = new Api<EmtpyTestClass>(new Mock<ILog>().Object) {BaseApiUrl = "http://www.google.co.uk/"};
             Assert.That(() => api.GetAsync("AnyUri", string.Empty), Throws.TypeOf<HttpRequestException>().And.Not.Message.Empty);
         }
-        
+       
     }
 
     public abstract class EmtpyTestClass

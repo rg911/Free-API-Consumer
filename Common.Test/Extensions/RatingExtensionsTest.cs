@@ -16,6 +16,20 @@ namespace Common.UnitTest.Extensions
         {
             Assert.AreEqual(10.22, (0.10222m).RoundPercentage());
         }
+
+        [Test]
+        public void Extensions_RatingExtension_RoundPercentage_Edge00()
+        {
+            Assert.AreEqual(0.00, (0.00001m).RoundPercentage());
+        }
+
+        [Test]
+        public void Extensions_RatingExtension_RoundPercentage_Edge99()
+        {
+            Assert.AreEqual(100, (0.9999999m).RoundPercentage()); //should round up to 100
+        }
+
+        
         [Test]
         public void Extensions_RatingExtension_GetStarName_Test()
         {

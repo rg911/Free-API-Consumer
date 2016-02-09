@@ -15,7 +15,7 @@ namespace Common.Extensions
         /// <returns>2 decimals number</returns>
         public static decimal RoundPercentage(this decimal input)
         {
-            return Math.Round(input*100, 2);
+            return Math.Round(input*100, 2, MidpointRounding.AwayFromZero);
         }
 
         /// <summary>

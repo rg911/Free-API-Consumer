@@ -43,3 +43,11 @@ Log4Net is used for activity and error logging.
 
 ## Installation and Running
 + Debug in Visual Studio or deploy to web server.
+
+## Future Enhancement
+
++ Language support was added at very last minute. So I haven't got much time to do decent testing on it. 
++ If I have time, I'd like to use AngularJS in front end. Pass API results to an Angular model and shift server side functions to client side. It also improve user experiences. As calling real API might 'freeze' the browser for a free seconds.
++ I'd also like to handle multiple language support properly. I just passed the language  into RouteData (all done by MVC routing and action parameters). Ideally, It should use CultureInfo or setting up proper language resources files using Key/Value type data. 
++ Caching probably need more work, such as config settings, UI to clear cache/condition to clear etc...
++ Can potentially change strong closed constructed type models to open generic models. So that it can use single model class per API calls. 
