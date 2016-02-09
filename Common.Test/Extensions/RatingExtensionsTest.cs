@@ -1,9 +1,4 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Common.Extensions;
-using Common.Infrastructure.Api;
-using log4net;
-using Moq;
+﻿using Common.Extensions;
 using NUnit.Framework;
 
 namespace Common.UnitTest.Extensions
