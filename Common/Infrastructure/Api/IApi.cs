@@ -14,11 +14,13 @@ namespace Common.Infrastructure.Api
     public interface IApi<T> where T: class
     {   
         string BaseApiUrl { get; set; }
+
         /// <summary>
         /// Generic method to performa a single API Get call to build up content model
         /// </summary>
         /// <param name="uri">Web api uri</param>
+        /// <param name="language">Language</param>
         /// <returns>Api get content (Json deserialized data model)</returns>
-        Task<T> GetAsync(string uri);
+        Task<T> GetAsync(string uri, string language);
     }
 }

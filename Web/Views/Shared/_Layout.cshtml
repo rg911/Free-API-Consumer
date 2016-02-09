@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Common.Enums
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Food Hygiene Rating API Consumer</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -18,19 +19,40 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Food Hygiene Rating Api Consumer V2", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
+                                Language
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("English (Default)", "Index", "Home", new { area = "", language = LanguageEnum.English.ToString() }, null)</li>
+                                <li>@Html.ActionLink("Welsh", "Index", "Home", new { area = "", language = LanguageEnum.Welsh.ToString() }, null)</li>
+                            </ul>
+                        </li>
+
                     </ul>
-                    @Html.Partial("_LoginPartial")
                 </div>
             </div>
         </div>
 
         @RenderBody()
-        
+
+        <hr/>
+        <footer>
+            <div class="footer">
+                <div class="footer">
+                    <div class="container">
+                        <p>&copy; @DateTime.Now.Year - Steven Liu
+                            <a href="mailto:xian.f.liu@gmail.com">xian.f.liu@gmail.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
    
     @Scripts.Render("~/bundles/jquery")

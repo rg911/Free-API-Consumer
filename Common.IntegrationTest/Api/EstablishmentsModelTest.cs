@@ -16,7 +16,7 @@ namespace Common.IntegrationTest.Api
         public async Task Service_Establishments_Single_Return_One_Record()
         {
             var api = new Api<EstablishmentsModel>(new Mock<ILog>().Object);
-            var result = await api.GetAsync("Establishments/1");
+            var result = await api.GetAsync("Establishments/1", string.Empty);
             Assert.IsNotNull(result);
             Assert.That(!string.IsNullOrEmpty(result.RatingValue));
         }
@@ -25,7 +25,7 @@ namespace Common.IntegrationTest.Api
         public async Task Service_Establishments_AllAuthorities_Returns_All()
         {
             var api = new Api<EstablishmentsViewModel>(new Mock<ILog>().Object);
-            var result = await api.GetAsync("Establishments?LocalAuthorityId=197");
+            var result = await api.GetAsync("Establishments?LocalAuthorityId=197", string.Empty);
             Assert.IsNotNull(result);
             Assert.That(result.Establishments.Any());
         }
@@ -34,7 +34,7 @@ namespace Common.IntegrationTest.Api
         public async Task Service_Establishments_GetRating_Returns_All()
         {
             var apiService = new Api<EstablishmentsViewModel>(new Mock<ILog>().Object);
-            var model = await apiService.GetAsync("Establishments?LocalAuthorityId=197");
+            var model = await apiService.GetAsync("Establishments?LocalAuthorityId=197", string.Empty);
             var restultEs = model.Establishments.GroupBy(x => x.RatingValue).Select(group=> new { RateValue = group.Key, Count = group.Count() }).OrderBy(x=>x.RateValue).ToList();
             var result = restultEs.Select(x => new RatingViewModel() { RatingName = x.RateValue, Percentage = (decimal)x.Count / model.Establishments.Count() })
                  .ToList();

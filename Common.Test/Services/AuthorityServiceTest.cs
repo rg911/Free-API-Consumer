@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Infrastructure.Api;
+using Common.Infrastructure.Cache;
 using Common.Model;
-using Common.Services.Implementations;
+using Common.Repository.Implementations;
 using Common.ViewModel;
+using log4net;
 using Moq;
 using NUnit.Framework;
 
@@ -35,10 +37,10 @@ namespace Common.UnitTest.Services
         {
             //Mock Api service
             var api = new Mock<IApi<AuthoritiesViewModel>>();
-            api.Setup(x => x.GetAsync(string.Empty)).Returns(Task.FromResult(_model));
+            api.Setup(x => x.GetAsync(string.Empty, string.Empty)).Returns(Task.FromResult(_model));
 
-            var authorityService = new AuthorityService(api.Object);
-            var result = await authorityService.GetAuthorities(string.Empty);
+            var authorityService = new AuthorityRepository(api.Object, new Mock<ICache>().Object, new Mock<ILog>().Object);
+            var result = await authorityService.GetAuthorities(string.Empty, string.Empty);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(10, result.Authorities.Count());

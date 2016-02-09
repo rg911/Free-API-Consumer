@@ -71,20 +71,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\LanguageEnum.cs" />
     <Compile Include="Extensions\LogExtensions.cs" />
     <Compile Include="Extensions\RatingExtensions.cs" />
+    <Compile Include="Infrastructure\Cache\ICache.cs" />
     <Compile Include="Infrastructure\Api\Api.cs" />
     <Compile Include="Infrastructure\Api\ApiBase.cs" />
     <Compile Include="Infrastructure\Api\IApi.cs" />
+    <Compile Include="Infrastructure\Cache\WebCache.cs" />
     <Compile Include="Model\AuthorityModel.cs" />
     <Compile Include="Model\EstablishmentsModel.cs" />
-    <Compile Include="Services\Implementations\AuthorityService.cs" />
-    <Compile Include="Services\Implementations\EstablishmentService.cs" />
-    <Compile Include="Services\Interfaces\IAuthorityService.cs" />
-    <Compile Include="Services\Interfaces\IEstablishmentService.cs" />
+    <Compile Include="Model\RatingKeyModel.cs" />
+    <Compile Include="Repository\Implementations\RatingKeyRepository.cs" />
+    <Compile Include="Repository\Implementations\AuthorityRepository.cs" />
+    <Compile Include="Repository\Implementations\EstablishmentRepository.cs" />
+    <Compile Include="Repository\Interfaces\IAuthorityRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRatingKeyRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEstablishmentRepository.cs" />
     <Compile Include="ViewModel\AuthoritiesViewModel.cs" />
     <Compile Include="ViewModel\EstablishmentsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\RatingKeyViewModel.cs" />
     <Compile Include="ViewModel\RatingViewModel.cs" />
     <Compile Include="WebConfig\ApiConstant.cs" />
   </ItemGroup>

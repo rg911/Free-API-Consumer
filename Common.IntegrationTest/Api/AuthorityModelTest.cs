@@ -17,7 +17,7 @@ namespace Common.IntegrationTest.Api
         public async Task Service_Authority_Single_Return_One_Record()
         {
             var api = new Api<AuthorityModel>(new Mock<ILog>().Object);
-            var result = await api.GetAsync("Authorities/197");
+            var result = await api.GetAsync("Authorities/197", string.Empty);
             Assert.IsNotNull(result);
             Assert.That(result.Id == 197);
             Assert.That(!string.IsNullOrEmpty(result.Name));
@@ -28,7 +28,7 @@ namespace Common.IntegrationTest.Api
         public async Task Service_Authority_AllAuthorities_Returns_All()
         {
             var api = new Api<AuthoritiesViewModel>(new Mock<ILog>().Object);
-            var result = await api.GetAsync("Authorities");
+            var result = await api.GetAsync("Authorities", string.Empty);
             Assert.IsNotNull(result);
             Assert.That(result.Authorities.Any());
         }

@@ -8,36 +8,45 @@
 {
    @Html.AntiForgeryToken()
     <div class="container content" style="margin-top: 60px">
+        <h3>
+            Select a local authority to view the Food Hygiene ratings for that area.
+        </h3>
+        <h4>
+            Select language from top navigation bar to to switch results language between English and Welsh.
+        </h4>
+        <hr />
         <div class="row">
             <div class="col-md-3">
-                    @Html.LabelFor(m => m.SelectedAuthorityId)
-                    @Html.DropDownListFor(m => m.SelectedAuthorityId, (IEnumerable<SelectListItem>)ViewBag.AuthorityList, "Select Local Authority", new { onchange = "form.submit()", @class = "form-control" })
+                @Html.LabelFor(m => m.SelectedAuthorityId)
+                @Html.DropDownListFor(m => m.SelectedAuthorityId, (IEnumerable<SelectListItem>)ViewBag.AuthorityList, "Select Local Authority", new { onchange = "form.submit()", @class = "form-control" })
+                <div>
+                    <h5><span>Current language:</span>@ViewBag.Language</h5>
+                </div>
             </div>
             <div class="col-md-9">
-                <div class="panel panel-dark equal-height-column">
-                    <div class="panel-heading" style="padding-bottom: 0px;">
-                        <p id="authorityName" class="panel-header-text">
-                        </p>
-                        
-                    </div>
-                    @if (Model.Ratings != null)
-                    {
-                        <div class="panel-body" style="padding-top: 0px;">
+                @if (Model.Ratings != null)
+                {
+                    <div class="panel panel-dark equal-height-column">
+                        <div class="panel-heading" style="padding-bottom: 0px;">
+                        </div>
 
+                        <div class="panel-body" style="padding-top: 0px;">
+                            <p id="authorityName" class="panel-header-text">
+                            </p>
                             <table class="table table-striped">
                                 <thead>
-                                <tr>
-                                    <th>
-                                        <p class="table-header">
-                                            <strong>Rating Name</strong>
-                                        </p>
-                                    </th>
-                                    <th>
-                                        <p class="table-header">
-                                            <strong>Rating Percentage</strong>
-                                        </p>
-                                    </th>
-                                </tr>
+                                    <tr>
+                                        <th>
+                                            <p class="table-header">
+                                                <strong>Rating Name</strong>
+                                            </p>
+                                        </th>
+                                        <th>
+                                            <p class="table-header">
+                                                <strong>Rating Percentage</strong>
+                                            </p>
+                                        </th>
+                                    </tr>
                                 </thead>
                                 @foreach (var rating in Model.Ratings)
                                 {
@@ -53,9 +62,8 @@
                             </table>
 
                         </div>
-
-                    }
-                </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

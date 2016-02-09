@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
-using Common.Services.Interfaces;
 using System.Threading.Tasks;
-using System.Web.UI;
+using Common.Repository.Interfaces;
 using Common.WebConfig;
 using Web.Models;
 
@@ -11,21 +11,22 @@ namespace Web.Controllers
     public class HomeController : Controller
     {
         #region Dependencies
-
-        private IAuthorityService AuthorityService { get; }
-        private IEstablishmentService EstablishmentService { get; }
+        private IRatingKeyRepository RatingKeyRepository { get; }
+        private IAuthorityRepository AuthorityRepository { get; }
+        private IEstablishmentRepository EstablishmentRepository { get; }
         #endregion
 
         #region Constructor
         /// <summary>
         /// Constructor with service dependencies injected
         /// </summary>
-        /// <param name="authorityService">Authority Service</param>
-        /// <param name="establishmentService">Establishment Service</param>
-        public HomeController(IAuthorityService authorityService, IEstablishmentService establishmentService)
+        /// <param name="authorityRepository">Authority Service</param>
+        /// <param name="establishmentRepository">Establishment Service</param>
+        public HomeController(IAuthorityRepository authorityRepository, IEstablishmentRepository establishmentRepository, IRatingKeyRepository ratingKeyRepository)
         {
-            AuthorityService = authorityService;
-            EstablishmentService = establishmentService;
+            AuthorityRepository = authorityRepository;
+            EstablishmentRepository = establishmentRepository;
+            RatingKeyRepository = ratingKeyRepository;
         }
         #endregion
 
@@ -35,13 +36,16 @@ namespace Web.Controllers
         /// </summary>
         /// <returns>Action result of Index controller</returns>
         [HttpGet]
-        [OutputCache(Duration = 600, Location = OutputCacheLocation.Server, VaryByParam = "none")]
         public async Task<ActionResult> Index()
         {
+            //First get language from route
+            var language = ControllerContext.RouteData.Values["language"].ToString();
             //Get list of local authorities
-            var authorities = await AuthorityService.GetAuthorities(ApiConstant.AuthorityUri);
-            //Create selectlist for dropdown
-            ViewBag.AuthorityList = new SelectList(authorities.Authorities, "Id", "Name", "RegionName",-1);
+            var authorities = await AuthorityRepository.GetAuthorities(ApiConstant.AuthorityUri, language);
+           
+
+            ViewBag.AuthorityList = new SelectList(authorities.Authorities.OrderBy(x => x.RegionName).ThenBy(x => x.Name), "Id", "Name", "RegionName", 0);
+            ViewBag.Language = language ?? "English";
             return View(new ResultsViewModel { Ratings = null });
         }
 
@@ -53,21 +57,32 @@ namespace Web.Controllers
         /// <returns>Rating of selected authority</returns>
         [ValidateAntiForgeryToken]
         [HttpPost]
-        [OutputCache(Duration = 600, Location = OutputCacheLocation.Server, VaryByParam = "SelectedAuthorityId")]
         public async Task<ActionResult> Index([Bind(Include = "SelectedAuthorityId")] ResultsViewModel model)
         {
-            //Get establishment API query string
-            var queryString = new Dictionary<string, string>
-            {
-                {ApiConstant.QueryStringKeyLocalAuthority, model.SelectedAuthorityId.ToString()}
-            };
-            //Get establishment
-            model.Ratings = await EstablishmentService.GetRating(ApiConstant.EstablishmentUri, queryString);
+            var language = ControllerContext.RouteData.Values["language"].ToString();
 
-            var authorities = await AuthorityService.GetAuthorities(ApiConstant.AuthorityUri);
-            ViewBag.AuthorityList = new SelectList(authorities.Authorities, "Id", "Name", "RegionName",model.SelectedAuthorityId);
+            //escape default select 'select authority' option
+            if (model.SelectedAuthorityId != 0)
+            {
+                //Get language enabled rating names
+                var ratingKeys = await RatingKeyRepository.GetRatingKeys(ApiConstant.RatingsUri, language);
+                //Get establishment API query string
+                var queryString = new Dictionary<string, string>
+                {
+                    {ApiConstant.QueryStringKeyLocalAuthority, model.SelectedAuthorityId.ToString()}
+                };
+                //Get establishment
+                model.Ratings = await EstablishmentRepository.GetRating(ApiConstant.EstablishmentUri, queryString, ratingKeys.RatingKeys.ToDictionary(x=>x.RatingKey,x=>x.RatingName), language);
+            }
+
+            var authorities = await AuthorityRepository.GetAuthorities(ApiConstant.AuthorityUri, language);
+            ViewBag.AuthorityList =
+                new SelectList(authorities.Authorities.OrderBy(x => x.RegionName).ThenBy(x => x.Name), "Id", "Name",
+                    "RegionName", model.SelectedAuthorityId);
+            ViewBag.Language = language ?? "English";
             return View(model);
         }
+
 
     }
 }

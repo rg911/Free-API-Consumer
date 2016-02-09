@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Common.Model;
+﻿using System.Threading.Tasks;
+using Common.Enums;
 using Common.ViewModel;
 
-namespace Common.Services.Interfaces
+namespace Common.Repository.Interfaces
 {
     /// <summary>
     /// Authority services handler
     /// </summary>
-    public interface IAuthorityService
+    public interface IAuthorityRepository
     {
         /// <summary>
         /// Call API get all local authrities
         /// </summary>
         /// <param name="uri">API Uri</param>
+        /// <param name="language">Language</param>
         /// <returns>Closed constructed local authority model</returns>
-        Task<AuthoritiesViewModel> GetAuthorities(string uri);
+        Task<AuthoritiesViewModel> GetAuthorities(string uri, string language);
     }
 }

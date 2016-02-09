@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Common.Enums;
 using log4net;
 using Newtonsoft.Json;
 using Common.WebConfig;
@@ -32,15 +33,17 @@ namespace Common.Infrastructure.Api
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// Generic method to performa a single API Get call to build up content model.
         /// Can handle differnt API endpoint calls and generate strong typed data model.
         /// </summary>
         /// <param name="uri">Web api uri</param>
+        /// <param name="language">Language</param>
         /// <returns>Api get content (Json deserialized data model)</returns>
-        public async Task<T> GetAsync(string uri)
+        public async Task<T> GetAsync(string uri, string language)
         {
-            using (var client = HttpClientSetup(BaseApiUrl))
+            using (var client = HttpClientSetup(BaseApiUrl, language))
             {
                 
                 T result = null;
@@ -85,17 +88,25 @@ namespace Common.Infrastructure.Api
         #endregion
 
         #region Private Method
+
         /// <summary>
         /// this method to setup HttpClient object with default configurations.
         /// </summary>
         /// <param name="baseApiUrl"></param>
+        /// <param name="language">Language</param>
         /// <returns></returns>
-        private static HttpClient HttpClientSetup(string baseApiUrl)
+        private static HttpClient HttpClientSetup(string baseApiUrl, string language)
         {
-            HttpClient client = new HttpClient {BaseAddress = new Uri(baseApiUrl ?? ApiConstant.BassApiUrl)};
+            var client = new HttpClient {BaseAddress = new Uri(baseApiUrl ?? ApiConstant.BassApiUrl)};
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add(ApiConstant.HeaderRequestKey, ApiConstant.HeaderRequestValue);
+
+            client.DefaultRequestHeaders.Add(ApiConstant.HeaderRequestKeyVersion, ApiConstant.HeaderRequestValueVerion);
+            if (language.Equals(Enum.GetName(typeof(LanguageEnum),(int)LanguageEnum.Welsh)))
+            {
+                client.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(ApiConstant.HeaderRequestValueLanguageWelsh));
+            }
+            
             return client;
         }
         #endregion

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Infrastructure.Api;
+using Common.Infrastructure.Cache;
 using Common.Model;
-using Common.Services.Implementations;
+using Common.Repository.Implementations;
 using Common.ViewModel;
 using log4net;
 using Moq;
@@ -17,10 +19,12 @@ namespace Common.UnitTest.Services
         private readonly EstablishmentsViewModel _model = new EstablishmentsViewModel();
         private const string Uri = "Establishments";
         private Dictionary<string, string> _queryString;
+        private Dictionary<string, string> _ratingKeyValues;
         [SetUp]
         public void BeforeTests()
         {
             _queryString = new Dictionary<string, string>();
+            _ratingKeyValues = new Dictionary<string, string>();
             //mock establishment model
             var establishemt = new List<EstablishmentsModel>();
             //provide a dummy rating
@@ -32,6 +36,7 @@ namespace Common.UnitTest.Services
                         {
                             RatingValue = ratings[i]
                         });
+                _ratingKeyValues[ratings[i]] = ratings[i];
             }
             _model.Establishments = establishemt;
         }
@@ -40,10 +45,10 @@ namespace Common.UnitTest.Services
         {
             //Mock Api service
             var api = new Mock<IApi<EstablishmentsViewModel>>();
-            api.Setup(x => x.GetAsync(Uri)).Returns(Task.FromResult(_model));
+            api.Setup(x => x.GetAsync(Uri, string.Empty)).Returns(Task.FromResult(_model));
 
-            var service = new EstablishmentService(new Mock<ILog>().Object,api.Object);
-            var result = await service.GetRating(Uri, _queryString);
+            var service = new EstablishmentRepository(new Mock<ILog>().Object,new Mock<ICache>().Object, api.Object);
+            var result = await service.GetRating(Uri, _queryString, _ratingKeyValues, string.Empty);
 
             //Enumate to list to aviod null exception
             var resultList = result as IList<RatingViewModel> ?? result.ToList();

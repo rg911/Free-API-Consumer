@@ -1,7 +1,8 @@
 using System;
 using Common.Infrastructure.Api;
-using Common.Services.Implementations;
-using Common.Services.Interfaces;
+using Common.Infrastructure.Cache;
+using Common.Repository.Implementations;
+using Common.Repository.Interfaces;
 using Common.ViewModel;
 using Microsoft.Practices.Unity;
 using UnityLog4NetExtension.Log4Net;
@@ -42,8 +43,11 @@ namespace Web
             // Register services
             container.AddNewExtension<Log4NetExtension>();
             container.RegisterType(typeof (IApi<>), typeof (Api<>))
-                .RegisterType<IEstablishmentService, EstablishmentService>()
-                .RegisterType<IAuthorityService, AuthorityService>();
+                .RegisterType<ICache, WebCache>()
+                .RegisterType<IRatingKeyRepository,RatingKeyRepository>()
+                .RegisterType<IEstablishmentRepository, EstablishmentRepository>()
+                .RegisterType<IAuthorityRepository, AuthorityRepository>();
+            
         }
     }
 }
