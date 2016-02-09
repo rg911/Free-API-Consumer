@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Infrastructure.Api;
@@ -33,13 +34,18 @@ namespace Common.UnitTest.Services
             _model.Authorities = auth;
         }
         [Test]
-        public async Task Service_Authority_Get_Return_Authority()
+        public async Task Repository_Authority_Get_Return_Authority()
         {
             //Mock Api service
             var api = new Mock<IApi<AuthoritiesViewModel>>();
             api.Setup(x => x.GetAsync(string.Empty, string.Empty)).Returns(Task.FromResult(_model));
+            //Mock ICache for testing
+            var cacheMock = new Mock<ICache>();
+            cacheMock.Setup(x => x.Get<EstablishmentsViewModel>(It.IsAny<string>())).Returns(new EstablishmentsViewModel());
+            cacheMock.Setup(x => x.Add(It.IsAny<string>(), It.IsAny<EstablishmentsViewModel>(), It.IsAny<DateTime>())).Verifiable();
 
-            var authorityService = new AuthorityRepository(api.Object, new Mock<ICache>().Object, new Mock<ILog>().Object);
+
+            var authorityService = new AuthorityRepository(api.Object, cacheMock.Object, new Mock<ILog>().Object);
             var result = await authorityService.GetAuthorities(string.Empty, string.Empty);
 
             Assert.IsNotNull(result);

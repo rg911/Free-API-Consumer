@@ -6,6 +6,7 @@ using System.Web;
 using Common.Enums;
 using Common.Infrastructure.Api;
 using Common.Infrastructure.Cache;
+using Common.Model;
 using Common.Repository.Interfaces;
 using Common.ViewModel;
 using log4net;
@@ -66,32 +67,33 @@ namespace Common.Repository.Implementations
             var cacheKey = ConstructCacheKey(queryString, language);
             var cached = Cache.Get<EstablishmentsViewModel>(cacheKey);
 
-            var model = cached;
             //if no data cached, get data from Api and cache it
-            if (model == null)
+            var establishmentsModels = cached;
+            if (cached?.Establishments == null)
             {
                 try
                 {
-                    model = await Api.GetAsync(GetUri(uri, queryString), language);
-                    Cache.Add(cacheKey, model, DateTime.Now.AddMinutes(30));
+                    establishmentsModels = await Api.GetAsync(GetUri(uri, queryString), language);
+                    Cache.Add(cacheKey, establishmentsModels, DateTime.Now.AddMinutes(30));
                 }
-                catch (Exception ex)
+                catch (ArgumentNullException ex)
                 {
                     Log.Error("Get esablishment from API throw unhandled Exception: /r/n", ex);
                     throw;
                 }
+               
             }
            //Create rating model
-            if (model != null)
+            if (establishmentsModels != null)
             {
                 try
                 {
-                    var restult = model.Establishments.GroupBy(x => x.RatingValue).Select(group => new { RatingName = RatingKeyValue[group.Key], Count = group.Count() }).OrderBy(x => x.RatingName).ToList();
+                    var restult = establishmentsModels.Establishments.ToList().GroupBy(x => x.RatingValue).Select(group => new { RatingName = RatingKeyValue[group.Key], Count = group.Count() }).OrderBy(x => x.RatingName).ToList();
 
-                    return restult.Select(x => new RatingViewModel() { RatingName = x.RatingName, Percentage = (decimal)x.Count / model.Establishments.Count() })
+                    return restult.Select(x => new RatingViewModel() { RatingName = x.RatingName, Percentage = (decimal)x.Count / establishmentsModels.Establishments.ToList().Count() })
                         .ToList();
                 }
-                catch (Exception ex)
+                catch (ArgumentNullException ex)
                 {
                     Log.Error("Get establishment rating throw unhandled Exception: /r/n", ex);
                     throw;
@@ -128,7 +130,8 @@ namespace Common.Repository.Implementations
         private static string ConstructCacheKey(Dictionary<string, string> queryString, string language)
         {
             var qs = string.Join("-", queryString.Select(x => x.Value).ToArray());
-            return $"authority_{qs}_{language}";
+            var lang = string.IsNullOrEmpty(language) ? LanguageEnum.English.ToString() : language;
+            return $"establishement_{qs}_{lang}";
         }
         #endregion
     }

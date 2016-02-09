@@ -13,7 +13,7 @@ namespace Common.IntegrationTest.Api
     public class EstablishmentsModelTest
     {
         [Test]
-        public async Task Service_Establishments_Single_Return_One_Record()
+        public async Task Repository_Establishments_Single_Return_One_Record()
         {
             var api = new Api<EstablishmentsModel>(new Mock<ILog>().Object);
             var result = await api.GetAsync("Establishments/1", string.Empty);
@@ -22,7 +22,7 @@ namespace Common.IntegrationTest.Api
         }
 
         [Test]
-        public async Task Service_Establishments_AllAuthorities_Returns_All()
+        public async Task Repository_Establishments_AllAuthorities_Returns_All()
         {
             var api = new Api<EstablishmentsViewModel>(new Mock<ILog>().Object);
             var result = await api.GetAsync("Establishments?LocalAuthorityId=197", string.Empty);
@@ -31,7 +31,7 @@ namespace Common.IntegrationTest.Api
         }
 
         [Test]
-        public async Task Service_Establishments_GetRating_Returns_All()
+        public async Task Repository_Establishments_GetRating_Returns_All()
         {
             var apiService = new Api<EstablishmentsViewModel>(new Mock<ILog>().Object);
             var model = await apiService.GetAsync("Establishments?LocalAuthorityId=197", string.Empty);

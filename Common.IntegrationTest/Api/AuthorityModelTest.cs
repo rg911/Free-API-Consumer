@@ -14,7 +14,7 @@ namespace Common.IntegrationTest.Api
     {
 
         [Test]
-        public async Task Service_Authority_Single_Return_One_Record()
+        public async Task Repository_Authority_Single_Return_One_Record()
         {
             var api = new Api<AuthorityModel>(new Mock<ILog>().Object);
             var result = await api.GetAsync("Authorities/197", string.Empty);
@@ -25,7 +25,7 @@ namespace Common.IntegrationTest.Api
         }
 
         [Test]
-        public async Task Service_Authority_AllAuthorities_Returns_All()
+        public async Task Repository_Authority_AllAuthorities_Returns_All()
         {
             var api = new Api<AuthoritiesViewModel>(new Mock<ILog>().Object);
             var result = await api.GetAsync("Authorities", string.Empty);
